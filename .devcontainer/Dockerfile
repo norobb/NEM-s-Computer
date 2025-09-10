@@ -17,7 +17,7 @@ RUN git clone https://github.com/novnc/noVNC.git /opt/novnc && \
 
 # websockify
 RUN git clone https://github.com/novnc/websockify /opt/websockify && \
-    pip install -r /opt/websockify/requirements.txt
+    pip install --break-system-packages -r /opt/websockify/requirements.txt
 
 
 # Benutzer "norobb" anlegen mit Passwort "2510"
