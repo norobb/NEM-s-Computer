@@ -7,8 +7,18 @@ RUN pacman -Syu --noconfirm && \
 # Cutefish installieren
 RUN pacman -S --noconfirm cutefish cutefish-core cutefish-dock cutefish-filemanager cutefish-settings
 
-# noVNC + Websockify
-RUN pacman -S --noconfirm novnc websockify
+# noVNC + websockify installieren (über GitHub, nicht pacman)
+USER root
+RUN pacman -S --noconfirm python python-pip
+
+# noVNC
+RUN git clone https://github.com/novnc/noVNC.git /opt/novnc && \
+    ln -s /opt/novnc/vnc.html /opt/novnc/index.html
+
+# websockify
+RUN git clone https://github.com/novnc/websockify /opt/websockify && \
+    pip install -r /opt/websockify/requirements.txt
+
 
 # Benutzer "norobb" anlegen mit Passwort "2510"
 RUN useradd -m -s /bin/bash norobb && echo "norobb:2510" | chpasswd && \
