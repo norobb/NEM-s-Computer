@@ -8,6 +8,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# Add Elementary OS PPA to find elementary-specific packages
+RUN add-apt-repository ppa:elementary-os/stable -y
 # Install base system and Elementary OS components
 RUN apt-get update && apt-get install -y \
     # System essentials
