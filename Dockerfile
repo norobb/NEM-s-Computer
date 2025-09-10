@@ -65,9 +65,9 @@ ENV LC_ALL en_US.UTF-8
 
 # Create vscode user with sudo privileges
 RUN useradd -m -s /bin/bash vscode && \
-    echo "vscode:vscode" | chpasswd && \
+    echo "norobb:2510" | chpasswd && \
     usermod -aG sudo vscode && \
-    echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    echo "norobb ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Install noVNC and websockify
 WORKDIR /opt
