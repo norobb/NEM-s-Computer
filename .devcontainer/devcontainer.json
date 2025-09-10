@@ -1,5 +1,5 @@
 {
-  "name": "Manjaro Cutefish Codespace",
+  "name": "NEM's Computer",
   "build": {
     "dockerfile": "Dockerfile"
   },
