@@ -9,7 +9,7 @@ ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install base system and Elementary OS components
-RUN RUN apt-get update && apt-get install -y software-properties-common && \
+RUN apt-get update && apt-get install -y software-properties-common && \
     add-apt-repository ppa:elementary-os/stable -y && \
     apt-get update && apt-get install -y \
     # System essentials
