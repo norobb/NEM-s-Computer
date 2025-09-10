@@ -62,7 +62,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Create vscode user with sudo privileges
+# Create norobb user with sudo privileges
 RUN useradd -m -s /bin/bash norobb && \
     usermod -aG sudo norobb && \
     echo "norobb ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -77,24 +77,24 @@ RUN git clone https://github.com/novnc/noVNC.git && \
 RUN pip3 install websockify
 
 # Set up VNC directory and configuration
-RUN mkdir -p /home/vscode/.vnc && \
-    chown -R vscode:vscode /home/vscode/.vnc
+RUN mkdir -p /home/norobb/.vnc && \
+    chown -R norobb:norobb /home/norobb/.vnc
 
 # Copy configuration files and scripts
 COPY scripts/setup-desktop.sh /usr/local/bin/setup-desktop.sh
 COPY scripts/start-desktop.sh /usr/local/bin/start-desktop.sh
 COPY scripts/vnc-startup.sh /usr/local/bin/vnc-startup.sh
-COPY config/xstartup /home/vscode/.vnc/xstartup
-COPY config/vnc-config /home/vscode/.vnc/config
+COPY config/xstartup /home/norobb/.vnc/xstartup
+COPY config/vnc-config /home/norobb/.vnc/config
 
 # Make scripts executable
 RUN chmod +x /usr/local/bin/*.sh && \
-    chmod +x /home/vscode/.vnc/xstartup && \
-    chown -R vscode:vscode /home/vscode/.vnc
+    chmod +x /home/norobb/.vnc/xstartup && \
+    chown -R norobb:norobb /home/norobb/.vnc
 
 # Set up desktop environment configuration
-RUN mkdir -p /home/vscode/.config && \
-    chown -R vscode:vscode /home/vscode/.config
+RUN mkdir -p /home/norobb/.config && \
+    chown -R norobb:norobb /home/norobb/.config
 
 # Configure X11 for VNC
 RUN mkdir -p /tmp/.X11-unix && \
@@ -110,9 +110,9 @@ ENV VNC_COLOR_DEPTH=24
 ENV VNC_PASSWORD=codespace
 ENV NOVNC_PATH="/opt/noVNC"
 
-# Switch to vscode user
-USER vscode
-WORKDIR /home/vscode
+# Switch to norobb user
+USER norobb
+WORKDIR /home/norobb
 
 # Set VNC password
 RUN mkdir -p ~/.vnc && \
@@ -133,14 +133,14 @@ export PULSE_SERVER="unix:${XDG_RUNTIME_DIR}/pulse/native"\n\
 # Start dbus\n\
 dbus-launch --sh-syntax --exit-with-session &\n\
 # Start VNC server\n\
-su - vscode -c "vncserver :1 -geometry $VNC_RESOLUTION -depth $VNC_COLOR_DEPTH -localhost no"\n\
+su - norobb -c "vncserver :1 -geometry $VNC_RESOLUTION -depth $VNC_COLOR_DEPTH -localhost no"\n\
 # Start noVNC\n\
 cd /opt/noVNC && python3 -m websockify --web . 6080 localhost:5901 &\n\
 # Keep container running\n\
 tail -f /dev/null\n\
 ' > /start-services.sh && chmod +x /start-services.sh
 
-USER vscode
+USER norobb
 WORKDIR /workspace
 
 # Start services by default
