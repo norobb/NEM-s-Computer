@@ -63,9 +63,8 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # Create vscode user with sudo privileges
-RUN useradd -m -s /bin/bash vscode && \
-    echo "norobb:2510" | chpasswd && \
-    usermod -aG sudo vscode && \
+RUN useradd -m -s /bin/bash norobb && \
+    usermod -aG sudo norobb && \
     echo "norobb ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Install noVNC and websockify
