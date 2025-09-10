@@ -37,9 +37,6 @@ RUN apt-get update && apt-get install -y software-properties-common && \
     xfce4 \
     xfce4-goodies \
     elementary-icon-theme \
-    elementary-wallpapers-extra \
-    # Elementary OS specific packages
-    elementary-tweaks \
     # Web browser
     firefox \
     # Development tools
